@@ -28,7 +28,7 @@ module.exports = {
     },
     {
       label: 'About Me',
-      url: '/about-me',
+      url: 'https://jeansuh42.github.io/',
     },
   ],
   // Footer information (ex: Github, Netlify...)
