@@ -4,7 +4,7 @@ slug: query-speed-up
 date: 2023-08-08
 cover: ./cover.jpg
 generate-card: false
-language: en
+language: ko
 tags:
     - DB
 ---
