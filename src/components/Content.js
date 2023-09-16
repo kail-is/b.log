@@ -18,7 +18,15 @@ const ContentBody = styled.div`
   }
 
   & > p {
-    margin: 1em 0 0 0;
+    margin: 1.5em 0 0 0;
+  }
+
+  & li {
+    margin-top: 0.5em;
+  }
+
+  & ul ul {
+    margin: 0;
   }
 
   & a {
