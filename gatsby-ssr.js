@@ -14,7 +14,7 @@ function setColorsByTheme() {
   const colorModeKey = '🔑'
   const colorModeCssProp = '⚡️'
 
-  const mql = window.matchMedia('(prefers-color-scheme: dark)')
+  const mql = window.matchMedia('(prefers-color-scheme: light)')
   const prefersDarkFromMQ = mql.matches
   const persistedPreference = localStorage.getItem(colorModeKey)
 
