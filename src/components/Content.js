@@ -6,6 +6,15 @@ import MDXRenderer from 'gatsby-plugin-mdx/mdx-renderer'
 const ContentBody = styled.div`
   line-height: 1.6;
 
+  & > h1 {
+    color: var(--color-h1);
+    padding-top: 3rem;
+    margin-top: 3rem;
+    border-top: 1px solid #ececec;
+    font-size: 1.6em;
+  }
+
+
   & > h2 {
     color: var(--color-h2);
     padding-top: 3rem;
