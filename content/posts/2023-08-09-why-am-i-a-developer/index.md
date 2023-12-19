@@ -2,7 +2,7 @@
 title: 왜 개발을 하세요?
 slug: why-am-i-a-developer
 date: 2023-08-09
-cover: ../cover.jpg
+cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:

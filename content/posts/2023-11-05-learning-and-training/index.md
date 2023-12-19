@@ -2,7 +2,7 @@
 title: 공(工)을 학습(學習)하는 방법
 slug: learning-and-training
 date: 2023-11-05
-cover: ./cover.jpg
+cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:

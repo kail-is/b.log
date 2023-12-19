@@ -2,7 +2,7 @@
 title: WISEIN을 회고하며  
 slug: remind-wisein
 date: 2023-08-18
-cover: ./cover.jpg
+cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:

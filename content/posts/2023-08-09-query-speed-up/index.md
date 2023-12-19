@@ -2,7 +2,7 @@
 title: 쿼리 속도를 올리는 방법은 어떤 게 있을까? - 쿼리적으로
 slug: query-speed-up2
 date: 2023-08-09
-cover: ./cover.jpg
+cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:

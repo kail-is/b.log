@@ -2,7 +2,7 @@
 title: SOLID 원칙에 대해 실용적으로 이해하기
 slug: practical-SOLID
 date: 2023-12-11
-cover: ./cover.jpg
+cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
