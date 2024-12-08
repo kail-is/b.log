@@ -1,15 +1,15 @@
 module.exports = {
   siteTitle: '작은 성장을 누적하기',
   siteDescription: '',
-  authorName: 'Jean Suh',
+  authorName: '서은빈',
   twitterUsername: '',
   authorAvatar: 'profile.png', // file in content/images
   defaultLang: 'ko', // show flag if lang is not default. Leave empty to enable flags in post lists
   authorDescription: `
-  금융과 소비자의 교두보가 되고 싶은 개발자.
+  1의 개발로 N배의 가치, N개의 문제를 풀고 싶은 개발자
   `,
-  siteUrl: 'https://jeansuh42.github.io/',
-  disqusSiteUrl: 'https://jeansuh42.github.io/',
+  siteUrl: 'https://github.com/kail-is',
+  disqusSiteUrl: 'https://github.com/kail-is',
   // Prefixes all links. For cases when deployed to maxpou.fr/gatsby-starter-morning-dew/
   pathPrefix: '/gatsby-starter-morning-dew', // Note: it must *not* have a trailing slash.
   siteCover: 'sea.jpeg', // file in content/images
@@ -18,17 +18,13 @@ module.exports = {
   display: 'standalone',
   icon: 'content/images/profile.png',
   postsPerPage: 10,
-  disqusShortname: 'jeansuh42',
+  disqusShortname: 'kailis',
   headerTitle: '작은 성장을 누적하기',
   headerLinksIcon: 'logo.png', //  (leave empty to disable: '')
   headerLinks: [
     {
-      label: 'Blog',
-      url: '/',
-    },
-    {
       label: 'About Me',
-      url: 'https://jeansuh42.github.io/',
+      url: 'https://artesuh.notion.site/13ce1ea9c27980238bc1c53277f3a647',
     },
   ],
   // Footer information (ex: Github, Netlify...)
@@ -55,12 +51,7 @@ module.exports = {
       links: [
         {
           label: 'GitHub',
-          url: 'https://github.com/jeansuh42',
-          rel: 'external',
-        },        
-        {
-          label: 'Rocketpunch',
-          url: 'https://www.rocketpunch.com/@jeansuh97',
+          url: 'https://github.com/kail-is',
           rel: 'external',
         },
       ],
