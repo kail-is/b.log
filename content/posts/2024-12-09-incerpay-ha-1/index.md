@@ -10,6 +10,11 @@ tags:
 - BE
 ---
 
+> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://github.com/FC-InnerCircle/icd01-team04-fintech2-be)에서, 
+> IncerPay라는 **PG 서비스**를 구현하면서 고민하고 구현한 내용을 담습니다.
+> 고민의 내용은 제가 담당했던 **BFF 서버**, 그 중에서도 **HA**에 집중되어 있습니다.
+
+
 # HA?
 
 IncerPay 구현 요구 사항 중 **HA를 보장하는 것**이 있었다.
