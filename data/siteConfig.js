@@ -18,7 +18,7 @@ module.exports = {
   display: 'standalone',
   icon: 'content/images/profile.png',
   postsPerPage: 10,
-  disqusShortname: 'kailis',
+  disqusShortname: 'beeniyxz',
   headerTitle: '작은 성장을 누적하기',
   headerLinksIcon: 'logo.png', //  (leave empty to disable: '')
   headerLinks: [
