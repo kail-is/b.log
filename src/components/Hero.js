@@ -23,7 +23,7 @@ const TitleContainer = styled.div`
 
 const HeroTitle = styled.h1`
   font-weight: 700;
-  letter-spacing: -3.5px;
+  letter-spacing: -2px;
   font-size: 2.5rem;
   margin: 0; 
   color: var(--color-white);

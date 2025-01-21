@@ -10,7 +10,14 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0;
 }
 
+
+html {
+//  font-size: 14px;
+}
+
+
 body {
+  line-height: 1.5;
   font-family: "Noto Sans KR", sans-serif;
   color: var(--color-text);
   background-color: var(--color-siteBackground);
@@ -44,6 +51,22 @@ ol {
 *::selection {
   background-color: var(--color-secondary);
 }
+
+@media (max-width: 768px) {
+
+  html {
+    font-size: 14px
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .gatsby-highlight pre[class*="language-"]  {
+    font-size: 0.7rem;
+  }
+}
+
+
 `
 export const StyledLink = styled(Link)`
   box-shadow: 0 2px 0 0 var(--color-secondary);
