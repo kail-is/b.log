@@ -1,5 +1,4 @@
 const { createFilePath } = require('gatsby-source-filesystem')
-
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
@@ -12,6 +11,15 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const ListPostsTemplate = require.resolve(
     './src/templates/blog-list-template.js'
   )
+
+  const TagsListTemplate = require.resolve('./src/templates/tags-list.js')
+
+  createPage({
+    path: '/tags/',
+    component: TagsListTemplate,
+    context: {},
+  })
+
 
   const allMarkdownQuery = await graphql(`
     {
@@ -124,13 +132,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
 
-  // generate tag page
+  // generate tag pages (including a fix for 'tags' being null or empty)
   markdownFiles
-    .filter(item => item.node.frontmatter.tags !== null)
-    .reduce(
-      (acc, cur) => [...new Set([...acc, ...cur.node.frontmatter.tags])],
-      []
-    )
+    .filter(item => item.node.frontmatter.tags)
+    .reduce((acc, cur) => {
+      const tags = cur.node.frontmatter.tags || []
+      return [...acc, ...tags] // 각 포스트에서 태그를 추출하여 누적
+    }, [])
+    .reduce((acc, tag) => {
+      if (!acc.includes(tag)) acc.push(tag) // 중복 태그 제거
+      return acc
+    }, [])
     .forEach(uniqTag => {
       createPage({
         path: `tags/${uniqTag}`,
@@ -140,17 +152,4 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         },
       })
     })
-}
-
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
-
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
 }

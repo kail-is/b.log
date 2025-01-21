@@ -26,6 +26,10 @@ module.exports = {
       label: 'About Me',
       url: 'https://artesuh.notion.site/13ce1ea9c27980238bc1c53277f3a647',
     },
+    {
+      label: 'Tags',
+      url: '/tags',
+    },
   ],
   // Footer information (ex: Github, Netlify...)
   websiteHost: {
