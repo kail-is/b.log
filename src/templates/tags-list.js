@@ -12,8 +12,12 @@ const TagContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 40%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `
+
 
 const TagList = styled.div`
   display: flex;
