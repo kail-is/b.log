@@ -210,11 +210,11 @@ _[이미지 출처] : https://martinfowler.com/articles/headless-component.html_
 
 또한 **라이브러리 까보기**를 토대로 탄력성에 대한 개발 히스토리에 대해 파악하고, 신규 라이브러리를 구상할 때 어떤 포인트를 짚어볼 수 있는지 확인해 볼 수 있었다.
 
-- [HA 1: 유량 제어](https://beeniyxz.netlify.app/incerpay-ha-1)
-- [HA 2-1: 호출 API 캐싱하기](https://beeniyxz.netlify.app/incerpay-ha-2-1)
-- [HA 2-2: Key 인증 과정에서의 Pub-sub (Redis vs Kafka)](https://beeniyxz.netlify.app/incerpay-ha-2-2)
-- [HA 3: MongoDB 캐싱](https://beeniyxz.netlify.app/incerpay-ha-3)
-- [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](https://beeniyxz.netlify.app/compare-resilience-lib)
+- [HA 1: 유량 제어](./incerpay-ha-1)
+- [HA 2-1: 호출 API 캐싱하기](./incerpay-ha-2-1)
+- [HA 2-2: Key 인증 과정에서의 Pub-sub (Redis vs Kafka)](./incerpay-ha-2-2)
+- [HA 3: MongoDB 캐싱](./incerpay-ha-3)
+- [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](./compare-resilience-lib)
 
 더 자세한 이야기들에 대해서는 포스팅을 해 두었으니 심심한 분들은 들어가서 읽어주시고 코멘트도 달아 주신다면 큰 기쁨이 될 것 같다.
 

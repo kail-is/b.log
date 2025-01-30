@@ -24,11 +24,11 @@ tags:
 
 
 - #### [IncerPay Series]
-  - [HA 1: 유량 제어](https://b-log.kr/incerpay-ha-1)
-  - [HA 2-1: API 캐싱](https://b-log.kr/incerpay-ha-2-1)
-  - [HA 2-2: Key 인증 과정에서의 Pub/sub](https://b-log.kr/incerpay-ha-2-2)
-  - [HA 3: Fallback & MongoDB 캐싱](https://b-log.kr/incerpay-ha-3)
-  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](https://b-log.kr/compare-resilience-lib)
+  - [HA 1: 유량 제어](/incerpay-ha-1)
+  - [HA 2-1: API 캐싱](/incerpay-ha-2-1)
+  - [HA 2-2: Key 인증 과정에서의 Pub/sub](/incerpay-ha-2-2)
+  - [HA 3: Fallback & MongoDB 캐싱](/incerpay-ha-3)
+  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](/compare-resilience-lib)
 
 
 
@@ -160,7 +160,7 @@ IncerPay 시스템에서 고려한 데이터 처리 흐름에 대해 설명해 �
 
 가맹점 검증부의 경우 상점 도메인에 요청을 하는데, 현재는 캐싱을 토대로 Redis에서 가맹점 검증 데이터를 가져오고 있다.
 
-**관련 내용은 [이 글](https://b-log.kr/incerpay-ha-2-1)에 정리**해 두었으니 더 자세한 구현 부가 궁금하시다면 해당 글을 참조해 주시면 좋겠다.
+**관련 내용은 [이 글](/incerpay-ha-2-1)에 정리**해 두었으니 더 자세한 구현 부가 궁금하시다면 해당 글을 참조해 주시면 좋겠다.
 
 ### (2) 카드사 결제 요청
 

@@ -25,11 +25,11 @@ tags:
 ---
 
 - #### [IncerPay Series]
-  - [HA 1: 유량 제어](https://b-log.kr/incerpay-ha-1)
-  - [HA 2-1: API 캐싱](https://b-log.kr/incerpay-ha-2-1)
-  - [HA 2-2: Key 인증 과정에서의 Pub/sub](https://b-log.kr/incerpay-ha-2-2)
-  - [HA 3: Fallback & MongoDB 캐싱](https://b-log.kr/incerpay-ha-3)
-  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](https://b-log.kr/compare-resilience-lib)
+  - [HA 1: 유량 제어](/incerpay-ha-1)
+  - [HA 2-1: API 캐싱](/incerpay-ha-2-1)
+  - [HA 2-2: Key 인증 과정에서의 Pub/sub](/incerpay-ha-2-2)
+  - [HA 3: Fallback & MongoDB 캐싱](/incerpay-ha-3)
+  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](/compare-resilience-lib)
 
 
 # HA?
