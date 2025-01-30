@@ -7,9 +7,9 @@ import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
 import config from '../../data/siteConfig'
 
-// 숨길 태그 목록 (필요에 따라 수정)
 const HIDDEN_TAGS = config.hiddenTags
 const INITIAL_TAGS = config.initialTags
+const POSTS_PER_PAGE = 10  // Add this constant to match your limit value
 
 const styles = {
   tagButton: {
@@ -81,6 +81,8 @@ const styles = {
 const BlogList = ({ data, pageContext, location }) => {
   const { title, description } = data.site.siteMetadata
   const posts = data.posts.edges
+  const [selectedTags, setSelectedTags] = useState(INITIAL_TAGS)
+  const [currentPage, setCurrentPage] = useState(pageContext.currentPage)
 
   // Get unique tags from all posts, excluding hidden tags
   const allTags = useMemo(() => {
@@ -95,8 +97,7 @@ const BlogList = ({ data, pageContext, location }) => {
     return Array.from(tags).sort()
   }, [posts])
 
-  const [selectedTags, setSelectedTags] = useState(INITIAL_TAGS)
-
+  // Filter all posts first
   const filteredPosts = useMemo(() => {
     return posts.filter(post => {
       const postTags = post.node.frontmatter.tags || []
@@ -113,7 +114,20 @@ const BlogList = ({ data, pageContext, location }) => {
     })
   }, [posts, selectedTags])
 
-  // Handle tag selection
+  // Calculate pagination after filtering
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+
+  // Get paginated posts from filtered results
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE
+    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE)
+  }, [filteredPosts, currentPage])
+
+  // Reset to first page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedTags])
+
   const handleTagClick = (tag) => {
     setSelectedTags(prev => {
       if (prev.includes(tag)) {
@@ -123,25 +137,35 @@ const BlogList = ({ data, pageContext, location }) => {
     })
   }
 
-  // Get post count for each tag
+  // 전체 포스트에서 히든태그를 제외한 각 태그의 개수를 계산
+  const tagCounts = useMemo(() => {
+    const counts = {}
+    posts.forEach(post => {
+      // 포스트의 모든 태그를 순회하되, hidden이 아닌 태그만 카운트
+      post.node.frontmatter.tags?.forEach(tag => {
+        if (!HIDDEN_TAGS.includes(tag)) {
+          counts[tag] = (counts[tag] || 0) + 1
+        }
+      })
+    })
+    return counts
+  }, [posts])
+
+
   const getTagCount = (tag) => {
-    return posts.filter(post =>
-      post.node.frontmatter.tags?.includes(tag) &&
-      !post.node.frontmatter.tags?.some(t => HIDDEN_TAGS.includes(t))
-    ).length
+    return tagCounts[tag] || 0
   }
 
   return (
     <Layout location={location}>
       <SEO />
       <Wrapper>
-        {/* Filter Section */}
         <div style={styles.filterSection}>
           <div style={styles.filterHeader}>
             <span>Tags</span>
             {selectedTags.length > 0 && (
               <div>
-                <button style={styles.filterHeader}
+                <button
                   onClick={() => setSelectedTags([])}
                   style={styles.removeTag}
                 >
@@ -172,13 +196,13 @@ const BlogList = ({ data, pageContext, location }) => {
           </div>
         </div>
 
-        {/* Posts List */}
-        <PostsList posts={filteredPosts} />
+        <PostsList posts={paginatedPosts} />
       </Wrapper>
 
       <Pagination
-        nbPages={pageContext.nbPages}
-        currentPage={pageContext.currentPage}
+        nbPages={totalPages}
+        currentPage={currentPage}
+        onChange={setCurrentPage}
       />
     </Layout>
   )
@@ -187,7 +211,7 @@ const BlogList = ({ data, pageContext, location }) => {
 export default BlogList
 
 export const pageQuery = graphql`
-  query blogListQuery($skip: Int!, $limit: Int!) {
+  query blogListQuery {
     site {
       siteMetadata {
         title
@@ -200,8 +224,6 @@ export const pageQuery = graphql`
         fileAbsolutePath: { regex: "//content/posts//" }
         frontmatter: { published: { ne: false }, unlisted: { ne: true } }
       }
-      limit: $limit
-      skip: $skip
     ) {
       edges {
         node {
