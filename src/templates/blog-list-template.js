@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react'
-import { graphql } from 'gatsby'
+import React, { useState, useEffect, useMemo } from 'react'
+import { graphql, navigate } from 'gatsby'
 import Layout from '../components/layout'
 import Wrapper from '../components/Wrapper'
 import PostsList from '../components/PostsList'
@@ -9,7 +9,7 @@ import config from '../../data/siteConfig'
 
 const HIDDEN_TAGS = config.hiddenTags
 const INITIAL_TAGS = config.initialTags
-const POSTS_PER_PAGE = 10  // Add this constant to match your limit value
+const POSTS_PER_PAGE = 10
 
 const styles = {
   tagButton: {
@@ -48,16 +48,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center'
   },
-  selectedTag: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    margin: '0 8px 8px 0',
-    padding: '6px 12px',
-    backgroundColor: '#4a5568',
-    color: 'white',
-    borderRadius: '4px',
-    fontSize: '14px',
-  },
   removeTag: {
     display: 'inline-flex',
     alignItems: 'center',
@@ -78,107 +68,101 @@ const styles = {
   },
 }
 
-const BlogList = ({ data, pageContext, location }) => {
-  const { title, description } = data.site.siteMetadata
-  const posts = data.posts.edges
-  const [selectedTags, setSelectedTags] = useState(INITIAL_TAGS)
-  const [currentPage, setCurrentPage] = useState(pageContext.currentPage)
+const BlogList = ({ pageContext, location, data }) => {
+  const allPosts = data?.allPosts?.edges || []  // 전체 포스트
+  const [selectedTags, setSelectedTags] = useState(() => {
+    if (typeof window === 'undefined') return INITIAL_TAGS
+    const savedTags = sessionStorage.getItem('selectedTags')
+    return savedTags ? JSON.parse(savedTags) : INITIAL_TAGS
+  })
 
-  // Get unique tags from all posts, excluding hidden tags
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('selectedTags', JSON.stringify(selectedTags))
+    }
+  }, [selectedTags])
+  const currentPage = pageContext.currentPage
+
+  // 1. 전체 태그 목록 (hidden 태그만 제외)
   const allTags = useMemo(() => {
     const tags = new Set()
-    posts.forEach(post => {
-      post.node.frontmatter.tags?.forEach(tag => {
+    allPosts.forEach(post => {
+      const postTags = post.node.frontmatter.tags || []
+      postTags.forEach(tag => {
         if (!HIDDEN_TAGS.includes(tag)) {
           tags.add(tag)
         }
       })
     })
     return Array.from(tags).sort()
-  }, [posts])
+  }, [allPosts])
 
-  // Filter all posts first
-  const filteredPosts = useMemo(() => {
-    return posts.filter(post => {
-      const postTags = post.node.frontmatter.tags || []
-
-      if (postTags.some(tag => HIDDEN_TAGS.includes(tag))) {
-        return false
-      }
-
-      if (selectedTags.length === 0) {
-        return true
-      }
-
-      return selectedTags.some(tag => postTags.includes(tag))
-    })
-  }, [posts, selectedTags])
-
-  // Calculate pagination after filtering
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
-
-  // Get paginated posts from filtered results
-  const paginatedPosts = useMemo(() => {
-    const startIndex = (currentPage - 1) * POSTS_PER_PAGE
-    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE)
-  }, [filteredPosts, currentPage])
-
-  // Reset to first page when filters change
-  React.useEffect(() => {
-    setCurrentPage(1)
-  }, [selectedTags])
-
-  const handleTagClick = (tag) => {
-    setSelectedTags(prev => {
-      if (prev.includes(tag)) {
-        return prev.filter(t => t !== tag)
-      }
-      return [...prev, tag]
-    })
-  }
-
-  // 전체 포스트에서 히든태그를 제외한 각 태그의 개수를 계산
+  // 2. 태그별 카운트 계산 (hidden 태그를 가진 포스트의 다른 태그들도 포함)
   const tagCounts = useMemo(() => {
     const counts = {}
-    posts.forEach(post => {
-      // 포스트의 모든 태그를 순회하되, hidden이 아닌 태그만 카운트
-      post.node.frontmatter.tags?.forEach(tag => {
+    allPosts.forEach(post => {
+      const postTags = post.node.frontmatter.tags || []
+      postTags.forEach(tag => {
         if (!HIDDEN_TAGS.includes(tag)) {
           counts[tag] = (counts[tag] || 0) + 1
         }
       })
     })
     return counts
-  }, [posts])
+  }, [allPosts])
 
+  // 3. 선택된 태그에 따라 필터링된 전체 포스트
+  const filteredPosts = useMemo(() => {
+    return allPosts.filter(post => {
+      const postTags = post.node.frontmatter.tags || []
+      const visibleTags = postTags.filter(tag => !HIDDEN_TAGS.includes(tag))
 
-  const getTagCount = (tag) => {
-    return tagCounts[tag] || 0
-  }
+      if (selectedTags.length === 0) {
+        return visibleTags.length > 0
+      }
+      return selectedTags.some(tag => visibleTags.includes(tag))
+    })
+  }, [allPosts, selectedTags])
+
+  // 4. 현재 페이지에 보여줄 포스트
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE
+    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE)
+  }, [filteredPosts, currentPage])
+
+  // 5. 전체 페이지 수 계산
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+
+  // 필터링된 결과가 변경될 때마다 체크
+  useEffect(() => {
+    if (filteredPosts.length <= POSTS_PER_PAGE && currentPage !== 1) {
+      navigate('/')
+    }
+  }, [filteredPosts.length, currentPage])
 
   return (
     <Layout location={location}>
       <SEO />
       <Wrapper>
+        {/* 태그 목록 */}
         <div style={styles.filterSection}>
           <div style={styles.filterHeader}>
             <span>Tags</span>
             {selectedTags.length > 0 && (
-              <div>
-                <button
-                  onClick={() => setSelectedTags([])}
-                  style={styles.removeTag}
-                >
-                  ✕
-                </button>
-              </div>
+              <button onClick={() => setSelectedTags([])} style={styles.removeTag}>
+                ✕
+              </button>
             )}
           </div>
           <div>
             {allTags.map(tag => (
               <button
                 key={tag}
-                onClick={() => handleTagClick(tag)}
+                onClick={() => setSelectedTags(prev =>
+                  prev.includes(tag)
+                    ? prev.filter(t => t !== tag)
+                    : [...prev, tag]
+                )}
                 style={{
                   ...styles.tagButton,
                   ...(selectedTags.includes(tag) ? styles.activeTag : styles.inactiveTag)
@@ -189,36 +173,37 @@ const BlogList = ({ data, pageContext, location }) => {
                   ...styles.tagCount,
                   color: selectedTags.includes(tag) ? 'white' : '#718096'
                 }}>
-                  ({getTagCount(tag)})
+                  ({tagCounts[tag] || 0})
                 </span>
               </button>
             ))}
           </div>
         </div>
 
+        {/* 포스트 목록 */}
         <PostsList posts={paginatedPosts} />
       </Wrapper>
 
-      <Pagination
-        nbPages={totalPages}
-        currentPage={currentPage}
-        onChange={setCurrentPage}
-      />
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <Pagination
+          nbPages={totalPages}
+          currentPage={currentPage}
+          onChange={(newPage) => {
+            navigate(newPage === 1 ? '/' : `/pages/${newPage}`)
+          }}
+        />
+      )}
     </Layout>
   )
 }
 
 export default BlogList
 
+// GraphQL로 전체 포스트 데이터 가져오기
 export const pageQuery = graphql`
   query blogListQuery {
-    site {
-      siteMetadata {
-        title
-        description
-      }
-    }
-    posts: allMdx(
+    allPosts: allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: {
         fileAbsolutePath: { regex: "//content/posts//" }
