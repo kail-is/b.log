@@ -1,35 +1,187 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
 import { graphql } from 'gatsby'
-
 import Layout from '../components/layout'
 import Wrapper from '../components/Wrapper'
-import Hero from '../components/Hero'
 import PostsList from '../components/PostsList'
 import Pagination from '../components/Pagination'
 import SEO from '../components/SEO'
+import config from '../../data/siteConfig'
 
-class BlogList extends React.Component {
-  render() {
-    const { title, description } = this.props.data.site.siteMetadata
-    const posts = this.props.data.posts.edges
-    const { pageContext } = this.props
+// 숨길 태그 목록 (필요에 따라 수정)
+const HIDDEN_TAGS = config.hiddenTags
+const INITIAL_TAGS = config.initialTags
 
-    return (
-      <Layout location={this.props.location}>
-        <SEO />
-        {/* <Hero title={title} subTitle={description} /> */}
+const styles = {
+  tagButton: {
+    display: 'inline-block',
+    padding: '6px 12px',
+    margin: '0 8px 8px 0',
+    border: '1px solid #e2e8f0',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '14px',
+    transition: 'all 0.2s ease',
+    backgroundColor: 'white',
+  },
+  activeTag: {
+    backgroundColor: '#4a5568',
+    color: 'white',
+    borderColor: '#4a5568',
+  },
+  inactiveTag: {
+    borderColor: '#e2e8f0',
+    color: '#4a5568',
+    backgroundColor: 'white',
+  },
+  tagCount: {
+    marginLeft: '4px',
+    fontSize: '12px',
+    opacity: 0.7,
+  },
+  filterSection: {
+    marginBottom: '24px',
+  },
+  filterHeader: {
+    marginBottom: '12px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  selectedTag: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    margin: '0 8px 8px 0',
+    padding: '6px 12px',
+    backgroundColor: '#4a5568',
+    color: 'white',
+    borderRadius: '4px',
+    fontSize: '14px',
+  },
+  removeTag: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '15px',
+    height: '15px',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#a0aec0',
+    fontSize: '12px',
+    fontWeight: '300',
+    transition: 'all 0.15s ease',
+    marginLeft: '8px',
+    padding: '0',
+    background: 'transparent',
+    position: 'relative',
+    top: '-1px'
+  },
+}
 
-        <Wrapper>
-          <PostsList posts={posts} />
-        </Wrapper>
+const BlogList = ({ data, pageContext, location }) => {
+  const { title, description } = data.site.siteMetadata
+  const posts = data.posts.edges
 
-        <Pagination
-          nbPages={pageContext.nbPages}
-          currentPage={pageContext.currentPage}
-        />
-      </Layout>
-    )
+  // Get unique tags from all posts, excluding hidden tags
+  const allTags = useMemo(() => {
+    const tags = new Set()
+    posts.forEach(post => {
+      post.node.frontmatter.tags?.forEach(tag => {
+        if (!HIDDEN_TAGS.includes(tag)) {
+          tags.add(tag)
+        }
+      })
+    })
+    return Array.from(tags).sort()
+  }, [posts])
+
+  const [selectedTags, setSelectedTags] = useState(INITIAL_TAGS)
+
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      const postTags = post.node.frontmatter.tags || []
+
+      if (postTags.some(tag => HIDDEN_TAGS.includes(tag))) {
+        return false
+      }
+
+      if (selectedTags.length === 0) {
+        return true
+      }
+
+      return selectedTags.some(tag => postTags.includes(tag))
+    })
+  }, [posts, selectedTags])
+
+  // Handle tag selection
+  const handleTagClick = (tag) => {
+    setSelectedTags(prev => {
+      if (prev.includes(tag)) {
+        return prev.filter(t => t !== tag)
+      }
+      return [...prev, tag]
+    })
   }
+
+  // Get post count for each tag
+  const getTagCount = (tag) => {
+    return posts.filter(post =>
+      post.node.frontmatter.tags?.includes(tag) &&
+      !post.node.frontmatter.tags?.some(t => HIDDEN_TAGS.includes(t))
+    ).length
+  }
+
+  return (
+    <Layout location={location}>
+      <SEO />
+      <Wrapper>
+        {/* Filter Section */}
+        <div style={styles.filterSection}>
+          <div style={styles.filterHeader}>
+            <span>Tags</span>
+            {selectedTags.length > 0 && (
+              <div>
+                <button style={styles.filterHeader}
+                  onClick={() => setSelectedTags([])}
+                  style={styles.removeTag}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+          <div>
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => handleTagClick(tag)}
+                style={{
+                  ...styles.tagButton,
+                  ...(selectedTags.includes(tag) ? styles.activeTag : styles.inactiveTag)
+                }}
+              >
+                {tag}
+                <span style={{
+                  ...styles.tagCount,
+                  color: selectedTags.includes(tag) ? 'white' : '#718096'
+                }}>
+                  ({getTagCount(tag)})
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Posts List */}
+        <PostsList posts={filteredPosts} />
+      </Wrapper>
+
+      <Pagination
+        nbPages={pageContext.nbPages}
+        currentPage={pageContext.currentPage}
+      />
+    </Layout>
+  )
 }
 
 export default BlogList
