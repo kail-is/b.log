@@ -58,10 +58,13 @@ const TagsList = ({ data }) => {
         <h1>All Tags.</h1>
 
         <TagList>
-          {tags.map(tag => (
+          {data.allMdx.group.map(({ fieldValue: tag, totalCount }) => (
             <div key={tag}>
               <Link to={`/tags/${tag}/`} style={{ textDecoration: 'none' }}>
-                <Tag>{tag}</Tag>
+                <Tag>
+                  {tag}
+                  <span className="count"> ({totalCount})</span>
+                </Tag>
               </Link>
             </div>
           ))}
@@ -74,16 +77,9 @@ const TagsList = ({ data }) => {
 export const pageQuery = graphql`
   query {
     allMdx {
-      distinct(field: frontmatter___tags)
-      edges {
-        node {
-          frontmatter {
-            title
-            slug
-            tags
-          }
-          excerpt
-        }
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
       }
     }
   }

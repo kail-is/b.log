@@ -10,7 +10,7 @@ generate-card: false
 language: fr
 cover: ./cover.jpeg
 imageShare: ./cover.jpeg
-tags: ['fake']
+tags: 
 translations:
   - link: 'https://www.maxpou.fr/about'
     language: 'french'
