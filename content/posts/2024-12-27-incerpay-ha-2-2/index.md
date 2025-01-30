@@ -11,9 +11,24 @@ tags:
 ---
 
 
-> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://github.com/FC-InnerCircle/icd01-team04-fintech2-be)에서,
-> IncerPay라는 **PG 서비스**를 구현하면서 고민하고 구현한 내용을 담습니다.
+> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://fastcampus.co.kr/b2g_innercircle_dev)에서,
+> [IncerPay라는 **PG 서비스**](https://github.com/kail-is/incer-pay)를 구현하면서 고민하고 구현한 내용을 담습니다.
 > 고민의 내용은 제가 담당했던 **BFF 서버**, 그 중에서도 **HA**에 집중되어 있습니다.
+
+---
+
+- **이번 글의 주제:** **`캐시 갱신`**에 대한 HA
+    - *PubSub 방식 비교*를 통한 **캐시 갱신 부하 최소화** 의사 결정
+    - Redis vs Queue
+
+---
+
+- #### [IncerPay Series]
+  - [HA 1: 유량 제어](https://b-log.kr/incerpay-ha-1)
+  - [HA 2-1: API 캐싱](https://b-log.kr/incerpay-ha-2-1)
+  - [HA 2-2: Key 인증 과정에서의 Pub/sub](https://b-log.kr/incerpay-ha-2-2)
+  - [HA 3: Fallback & MongoDB 캐싱](https://b-log.kr/incerpay-ha-3)
+  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](https://b-log.kr/compare-resilience-lib)
 
 
 # 캐시는 갱신되어야 한다
@@ -388,7 +403,7 @@ _[출처] RabbitMQ 공식 사이트 : https://www.rabbitmq.com/tutorials/amqp-co
 
 어쩌면 가장 걱정하지 않아도 되는 부분인, **Exactly-once 보장. Redis에서는 어렵지만, RabbitMQ에서는 보장된다. 보장되지 않는대도 상관없다.** 여러 번 지운다고 해서 무엇이 문제가 될까? 전혀 문제되지 않는다.
 
-마지막으로 **시스템 복잡도 증가**에 대한 부분이다. Exchange와 Queue 설정, 바인딩 관리 등 신경 써야 할 부분이 분명 Redis에 비해서는 존재하지만, **RabbitMQ의 세팅**은 ****도커로 진행했을 때 크게 어렵지 않고, Kafka에 비하면 수용 가능한 수준이다.
+마지막으로 **시스템 복잡도 증가**에 대한 부분이다. Exchange와 Queue 설정, 바인딩 관리 등 신경 써야 할 부분이 분명 Redis에 비해서는 존재하지만, **RabbitMQ의 세팅**은 도커로 진행했을 때 크게 어렵지 않고, Kafka에 비하면 수용 가능한 수준이다.
 
 결론적으로, Pub/Sub의 일반적인 단점들은 우리의 키 갱신 유스케이스에서 큰 문제가 되지 않는다.
 

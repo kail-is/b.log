@@ -11,8 +11,25 @@ tags:
 ---
 
 
-> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://github.com/FC-InnerCircle/icd01-team04-fintech2-be)에서, IncerPay라는 PG 서비스를 구현하면서 고민하고 구현한 내용을 담습니다. 고민의 내용은 제가 담당했던 BFF 서버, 그 중에서도 HA에 집중되어 있습니다.
->
+
+> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://fastcampus.co.kr/b2g_innercircle_dev)에서,
+> [IncerPay라는 **PG 서비스**](https://github.com/kail-is/incer-pay)를 구현하면서 고민하고 구현한 내용을 담습니다.
+> 고민의 내용은 제가 담당했던 **BFF 서버**, 그 중에서도 **HA**에 집중되어 있습니다.
+
+---
+
+- **이번 글의 주제:** **`조회 요청`**에 대한 HA
+  - *Local / Global 캐싱*을 통한 **응답 속도 효율화**
+
+
+---
+
+- #### [IncerPay Series]
+  - [HA 1: 유량 제어](https://b-log.kr/incerpay-ha-1)
+  - [HA 2-1: API 캐싱](https://b-log.kr/incerpay-ha-2-1)
+  - [HA 2-2: Key 인증 과정에서의 Pub/sub](https://b-log.kr/incerpay-ha-2-2)
+  - [HA 3: Fallback & MongoDB 캐싱](https://b-log.kr/incerpay-ha-3)
+  - [HA α: “API 실패”에 대응하는 방법 (Resilience4j / Netflix Hystrix)](https://b-log.kr/compare-resilience-lib)
 
 
 # HA?
