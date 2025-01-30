@@ -190,7 +190,9 @@ const BlogList = ({ pageContext, location, data }) => {
           nbPages={totalPages}
           currentPage={currentPage}
           onChange={(newPage) => {
-            navigate(newPage === 1 ? '/' : `/pages/${newPage}`)
+            navigate(newPage === 1 ? '/' : `/pages/${newPage}`, {
+              state: { selectedTags }
+            })
           }}
         />
       )}
