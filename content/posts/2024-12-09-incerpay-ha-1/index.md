@@ -10,9 +10,26 @@ tags:
 - BE
 ---
 
-> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://github.com/FC-InnerCircle/icd01-team04-fintech2-be)에서, 
-> IncerPay라는 **PG 서비스**를 구현하면서 고민하고 구현한 내용을 담습니다.
+
+> 해당 시리즈는 [패스트캠퍼스 진행 INNER CIRCLE 1기](https://fastcampus.co.kr/b2g_innercircle_dev)에서,
+> [IncerPay라는 **PG 서비스**](https://github.com/kail-is/incer-pay)를 구현하면서 고민하고 구현한 내용을 담습니다.
 > 고민의 내용은 제가 담당했던 **BFF 서버**, 그 중에서도 **HA**에 집중되어 있습니다.
+
+---
+
+- **이번 글의 주제:** **`수신 제어`**에 대한 HA
+  - *거래 ID 채번 + 3초 제어*를 통한 **멱등성 보장**
+  - *Redis 기반 Fixed Window Rate Limit*을 통한 **DDoS 방어**
+ 
+---
+
+- #### [IncerPay Series]
+  - [HA 1: 유량 제어](/incerpay-ha-1)
+  - [HA 2-1: API 캐싱](/incerpay-ha-2-1)
+  - [HA 2-2: Key 인증 과정에서의 Pub/sub](/incerpay-ha-2-2)
+  - [HA 3: Fallback & MongoDB 캐싱](/incerpay-ha-3)
+  - [HA α: "API 실패"에 대응하는 방법 (Resilience4j / Netflix Hystrix)](/compare-resilience-lib)
+
 
 
 # HA?

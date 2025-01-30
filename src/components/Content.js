@@ -152,24 +152,48 @@ const ContentBody = styled.div`
     word-wrap: break-word;
   }
 
-  & table {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border-collapse: collapse;
-    overflow: hidden;
+& table {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: scroll;
+  width: 100%;
 
-    & th,
-    & td {
-      padding: 0.5em;
-      background-color: var(--color-secondaryContentBackground);
-    }
-    & tr {
-      border-bottom: 2px solid var(--color-white);
-    }
-    & tbody tr:last-child {
-      border-bottom: none;
-    }
+  & th,
+  & td {
+    padding: 0.8em 1em;
+    background-color: var(--color-secondaryContentBackground);
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: left;
   }
+
+  & tr {
+    border-bottom: 2px solid var(--color-white);
+  }
+
+  // 전체 테이블 레이아웃 설정
+  & table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  & thead,
+  & tbody {
+    display: table;
+    width: 100%;
+    min-width: 1000px; // 둘 다 동일한 min-width 적용
+  }
+
+  // 숫자 데이터 우측 정렬
+  & td:nth-child(n+3):not(:last-child) {
+    text-align: right;
+  }
+}
+
+
+}
 `
 
 class Content extends React.Component {

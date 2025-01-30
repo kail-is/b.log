@@ -61,4 +61,6 @@ module.exports = {
       ],
     },
   ],
+  hiddenTags: ['패스트캠퍼스 재직자 과정', 'FastCampus 성공 스토리', 'Packet Series', 'WISEIN', 'WISExpendi'],
+  initialTags: ['BE', 'Tech']
 }

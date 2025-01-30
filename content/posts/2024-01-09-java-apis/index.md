@@ -6,7 +6,7 @@ cover: sea.jpeg
 generate-card: false
 language: ko
 tags:
-- JAVA
+- Java
 ---
 
 

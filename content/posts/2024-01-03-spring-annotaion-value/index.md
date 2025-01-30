@@ -6,7 +6,7 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-    - spring
+    - Spring
     - WISExpendi
 ---
 # 기존 소스
