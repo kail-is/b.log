@@ -1,7 +1,7 @@
 ---
 title: "어떤 기술 스택을 선택해야 할까?"
 slug: how-do-i-decide-tech-stack
-date: 2025-01-03
+date: 2025-01-21
 cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
