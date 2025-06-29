@@ -13,9 +13,7 @@ tags:
 
 
 
-
-![img.png](./img/img_3.png)
-
+![Image](https://github.com/user-attachments/assets/b68ccaa3-e87c-489d-831f-192e6b3fefd9)
 
 # DEV CLUB 서포터즈 반년, 함께 성장한 시간들
 
@@ -34,8 +32,8 @@ tags:
 # 혼자가 아닌 함께, 그 특별한 힘
 
 
-![img.png](./img/img_2.png)
 
+![Image](https://github.com/user-attachments/assets/85832731-78c5-440b-bdc7-0808d6ccaae3)
 
 처음 느낀 것은 **함께 기여하는 집단**에 속한다는 감각이었다. 
 
@@ -59,7 +57,8 @@ tags:
 # 예상치 못한 만남, Coffice
 
 
-![img.png](./img/img.png)
+
+![Image](https://github.com/user-attachments/assets/60b25626-6c27-40ef-bcce-c675d4c88d68)
 
 그런데 정말 나에게 흥미로웠던 것은 이런 활동들이 완전히 새로운 연결고리로 이어졌다는 점이다. 
 
@@ -102,8 +101,7 @@ Coffice 뿐만이 아니었다.
 
 ## F-lab의 컨트리뷰터가 되며
 
-![img.png](./img/img_1.png)
-
+![Image](https://github.com/user-attachments/assets/ba02c6de-6289-40f6-97b2-cc6ecbd26f50)
 
 Coffice와 유사한 일이 벌어졌다.
 
