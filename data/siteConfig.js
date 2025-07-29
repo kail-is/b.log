@@ -19,6 +19,11 @@ module.exports = {
   icon: 'content/images/profile.png',
   postsPerPage: 10,
   disqusShortname: 'beeniyxz',
+  // Giscus configuration
+  giscusRepo: 'kail-is/b.log',
+  giscusRepoId: 'R_kgDOKOPhIA',
+  giscusCategory: 'Announcements',
+  giscusCategoryId: 'DIC_kwDOKOPhIM4CthIX',
   headerTitle: '작은 성장을 누적하기',
   headerLinksIcon: 'logo.png', //  (leave empty to disable: '')
   headerLinks: [

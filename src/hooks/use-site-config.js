@@ -15,6 +15,10 @@ const useSiteMetadata = () => {
           twitterUsername
           disqusShortname
           disqusSiteUrl
+          giscusRepo
+          giscusRepoId
+          giscusCategory
+          giscusCategoryId
           defaultLang
           headerTitle
           headerLinksIcon

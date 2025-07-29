@@ -6,8 +6,7 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- F-lab
-- BE
+- Study
 ---
 
 > 인프런에서 진행한 워밍업 클럽 스터디 - 테스트 코드 / 클린 코드를 수강하며 들었던 내용을 정리합니다.

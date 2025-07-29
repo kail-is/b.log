@@ -6,7 +6,7 @@ import Content from '../components/Content'
 import Wrapper from '../components/Wrapper'
 import Hero from '../components/Hero'
 import SEO from '../components/SEO'
-import Disqus from '../components/Disqus'
+import Giscus from '../components/Giscus'
 
 
 const Page = props => {
@@ -33,9 +33,9 @@ const Page = props => {
         </article>
       </Wrapper>
 
-      {page.frontmatter.disqus && (
+      {page.frontmatter.giscus && (
         <Wrapper as="aside">
-          <Disqus slug={page.frontmatter.slug} title={page.frontmatter.title} />
+          <Giscus slug={page.frontmatter.slug} title={page.frontmatter.title} />
         </Wrapper>
       )}
     </Layout>
