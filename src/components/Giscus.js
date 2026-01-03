@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Giscus from '@giscus/react'
 import useSiteMetadata from '../hooks/use-site-config'
+import { ThemeContext } from '../ThemeContext'
 
 const GiscusWrapper = props => {
   const { giscusRepo } = useSiteMetadata()
+  const { colorMode } = useContext(ThemeContext)
 
   if (!giscusRepo) {
     return null
   }
+
+  const giscusTheme = colorMode === 'dark' ? 'dark' : 'light'
 
   return (
     <div style={{ marginTop: '2rem' }}>
@@ -22,7 +26,7 @@ const GiscusWrapper = props => {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="bottom"
-        theme="preferred_color_scheme"
+        theme={giscusTheme}
         lang="ko"
         loading="lazy"
       />
