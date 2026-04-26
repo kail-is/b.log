@@ -6,7 +6,7 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- Being a Developer
+- 회고
 ---
 
 내 주변에는 유독 예술을 업으로 삼고 살아가는 사람들이 많다.

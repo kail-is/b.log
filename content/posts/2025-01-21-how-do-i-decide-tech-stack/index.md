@@ -6,7 +6,6 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- Tech
 - Opinion
 - BE
 ---

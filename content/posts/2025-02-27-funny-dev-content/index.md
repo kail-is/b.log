@@ -6,8 +6,7 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- F-lab
-- 데브서포터즈
+- F-Lab
 - DevClub
 ---
 

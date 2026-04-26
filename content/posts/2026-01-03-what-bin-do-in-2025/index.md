@@ -7,7 +7,6 @@ generate-card: false
 language: ko
 tags:
 - 회고
-- REWIND
 ---
 
 

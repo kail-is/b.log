@@ -6,9 +6,8 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- F-lab
-- DEVCLUB
-- 데브서포터즈2
+- F-Lab
+- DevClub
 ---
 
 # 혼자서는 어려워

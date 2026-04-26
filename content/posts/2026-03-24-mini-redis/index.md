@@ -8,7 +8,6 @@ language: ko
 tags:
 - BE
 - Redis
-- Cache
 ---
 
 > SET/GET은 익숙했지만, 그 뒤에 숨어 있는 구조는 늘 궁금했다. 자료구조 명령, TTL, Geo, Pub/Sub, Cluster 같은 부가기능을 직접 구현해 보고 싶었다. 명령어 속도도 재보면 재미있겠다고 생각했다. 결국 호기심이 Mini Redis를 만들게 했다!

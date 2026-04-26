@@ -6,7 +6,7 @@ cover: ../../images/sea.jpeg
 generate-card: false
 language: ko
 tags:
-- Being a Developer
+- 회고
 ---
 
 
